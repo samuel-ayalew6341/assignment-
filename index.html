@@ -1,95 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Bootstrap 5.1 CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WebHost - Hosting for Brilliant Businesses</title>
 
-<!-- Custom class used by the SVG placeholder images -->
-<style>
-  .bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-  }
-  /* Optional: makes the card fixed at 250px height on medium screens */
-  @media (min-width: 768px) {
-    .h-md-250 { height: 400px; }
-  }
-</style>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Basic Bootstrap Template</title>
-    <!-- Bootstrap CSS -->
-     <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+
+  <style>
+    * { font-family: 'Poppins', sans-serif; }
+
+    body {
+      margin: 0;
+      background: #0d1b4b;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .hero-section {
+      background:
+        radial-gradient(ellipse at 70% 50%, rgba(30,60,140,0.6) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(10,30,100,0.5) 0%, transparent 50%),
+        linear-gradient(160deg, #0a1535 0%, #1a2f70 50%, #0d1b4b 100%);
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Network lines SVG overlay */
+    .network-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.35;
+    }
+
+    .hero-section > .container,
+    .hero-section > nav,
+    .hero-section > .topbar-wrap {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── Topbar ─── */
+    .topbar-wrap {
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 5px 24px;
+    }
+    .topbar-items {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 20px;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .dot-green {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #2ecc71;
+      margin-right: 4px;
+    }
+
+    /* ─── Navbar ─── */
+    .navbar { background: transparent !important; padding: 0.5rem 1.5rem; }
+    .navbar-brand {
+      display: flex; align-items: center; gap: 8px;
+      color: #fff !important; font-weight: 800; font-size: 1.5rem; letter-spacing: 1px;
+    }
+    .nav-link {
+      color: rgba(255,255,255,0.85) !important;
+      font-size: 0.82rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      padding: 0.5rem 0.9rem !important;
+    }
+    .nav-link:hover { color: #fff !important; }
+    .btn-login {
+      background: #f5b800; color: #1a1a1a;
+      font-weight: 700; font-size: 0.8rem;
+      border: none; border-radius: 5px;
+      padding: 7px 18px; text-transform: uppercase; letter-spacing: 0.5px;
+      text-decoration: none;
+    }
+    .btn-login:hover { background: #e0a700; color: #000; }
+
+    /* ─── Hero Text ─── */
+    .hero-text { padding: 90px 0 60px; }
+    .hero-text h1 {
+      font-size: 2.4rem; font-weight: 800;
+      color: #fff; line-height: 1.25; margin-bottom: 0.3rem;
+    }
+    .hero-text h1 .highlight { color: #2ecc71; display: block; }
+    .hero-text p.desc {
+      color: rgba(255,255,255,0.7); font-size: 0.88rem;
+      max-width: 360px; margin-top: 1rem; line-height: 1.6;
+    }
+    .server-locations {
+      display: flex; align-items: center;
+      gap: 10px; margin-top: 1.5rem;
+    }
+    .server-locations span {
+      color: rgba(255,255,255,0.7); font-size: 0.82rem;
+    }
+    .flag-box {
+      width: 36px; height: 24px;
+      border-radius: 3px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.2);
+      flex-shrink: 0;
+    }
+
+    /* ─── Pricing Card ─── */
+    .pricing-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 28px 22px;
+      position: relative;
+      max-width: 290px;
+      margin: 80px auto 60px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .ribbon-wrap {
+      position: absolute;
+      top: 0; right: 0;
+      width: 80px; height: 80px;
+      overflow: hidden;
+      border-radius: 0 12px 0 0;
+    }
+    .ribbon-label {
+      position: absolute;
+      top: 18px; right: -18px;
+      background: #f5b800;
+      color: #333; font-size: 0.6rem;
+      font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.5px; padding: 4px 24px;
+      transform: rotate(45deg);
+      white-space: nowrap;
+    }
+    .card-heading { font-size: 1.1rem; font-weight: 700; color: #1a1a2e; margin-bottom: 1rem; }
+    .card-heading span { color: #555; font-weight: 400; }
+    .feature-list { list-style: none; padding: 0; margin: 0 0 1rem; }
+    .feature-list li {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 0.82rem; color: #333;
+      margin-bottom: 8px; font-weight: 500;
+    }
+    .feature-list li .check { color: #2ecc71; font-size: 0.9rem; flex-shrink: 0; }
+    .feature-list li .check-bolt { color: #f5b800; font-size: 0.9rem; flex-shrink: 0; }
+    .badge-nvme {
+      background: #f5b800; color: #333;
+      font-size: 0.6rem; font-weight: 800;
+      padding: 1px 5px; border-radius: 3px;
+      text-transform: uppercase; flex-shrink: 0;
+    }
+    .price-block { margin: 1rem 0 0.5rem; }
+    .price-block .amount { font-size: 2.2rem; font-weight: 800; color: #1a1a2e; line-height: 1; }
+    .price-block .period { font-size: 0.75rem; color: #888; font-weight: 500; }
+    .btn-buy {
+      background: #f5b800; color: #333;
+      font-weight: 700; font-size: 0.85rem;
+      border: none; border-radius: 6px;
+      padding: 11px 20px; width: 100%;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      display: flex; align-items: center;
+      justify-content: center; gap: 8px;
+      text-decoration: none; margin-top: 14px;
+      transition: background 0.2s;
+    }
+    .btn-buy:hover { background: #e0a700; color: #222; }
+
+    /* ─── Wave ─── */
+    .wave-bottom { position: absolute; bottom: 0; left: 0; width: 100%; z-index: 2; line-height: 0; }
+
+    /* ─── Chat Button ─── */
+    .chat-btn {
+      position: fixed; bottom: 24px; right: 24px;
+      background: #229ed9; color: #fff;
+      font-size: 0.85rem; font-weight: 600;
+      border-radius: 50px; padding: 10px 20px;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 4px 20px rgba(34,158,217,0.5);
+      text-decoration: none; z-index: 999;
+      transition: background 0.2s;
+    }
+    .chat-btn:hover { background: #1a85b7; color: #fff; }
+    .chat-btn .online-dot {
+      width: 10px; height: 10px; background: #2ecc71;
+      border-radius: 50%; position: absolute;
+      top: -2px; right: -2px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-text { padding: 60px 0 20px; }
+      .hero-text h1 { font-size: 1.8rem; }
+      .pricing-card { margin: 20px auto 60px; }
+    }
+  </style>
 </head>
 <body>
-<div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
-  <div class="col-md-6 px-0">
-    <span class="badge bg-warning text-dark">Free Workshop</span>
-    <h1 class="display-4 fw-bold">Web Design Workshop</h1>
-    <p class="lead">build Your First Responsive Webpage with Html and Bootstrap</p>
-  </div>
-</div>
-    </div>
-</section>
-<div class="row mb-2">
-  <div class="col-md-6">
-    <div style="height: auto;" class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-      <div class="col p-4 d-flex flex-column position-static">
-        <h4  class="mb-0 fw-bold">Workshop Details</h4>
-        <h4>Day</h4>
-        <p class="">Thursday</p>
-        <h4>Location</h4>
-        <p>School comp library</p>
-        <h4>What to bring</h4>
-        <p>A laptop and charger</p>
-      </div>
-      <div class="col-auto d-none d-lg-block">
-        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-          <title>Placeholder</title>
-        </svg>
-      </div>
+
+<div class="hero-section">
+
+  <svg class="network-overlay" viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <g stroke="#4a7adf" stroke-width="0.8" fill="none">
+      <line x1="50" y1="120" x2="280" y2="60"/>
+      <line x1="280" y1="60" x2="520" y2="180"/>
+      <line x1="520" y1="180" x2="780" y2="90"/>
+      <line x1="780" y1="90" x2="1050" y2="200"/>
+      <line x1="1050" y1="200" x2="1200" y2="140"/>
+      <line x1="0" y1="300" x2="200" y2="200"/>
+      <line x1="200" y1="200" x2="450" y2="380"/>
+      <line x1="0" y1="500" x2="300" y2="430"/>
+      <line x1="300" y1="430" x2="600" y2="560"/>
+      <line x1="600" y1="560" x2="880" y2="480"/>
+      <line x1="880" y1="480" x2="1200" y2="600"/>
+      <line x1="280" y1="60" x2="200" y2="200"/>
+      <line x1="520" y1="180" x2="450" y2="380"/>
+      <circle cx="280" cy="60" r="3.5" fill="#4a7adf"/>
+      <circle cx="520" cy="180" r="3.5" fill="#4a7adf"/>
+      <circle cx="780" cy="90" r="3.5" fill="#4a7adf"/>
+      <circle cx="1050" cy="200" r="3.5" fill="#4a7adf"/>
+      <circle cx="200" cy="200" r="3.5" fill="#4a7adf"/>
+      <circle cx="450" cy="380" r="3.5" fill="#4a7adf"/>
+      <circle cx="700" cy="280" r="3.5" fill="#4a7adf"/>
+      <circle cx="950" cy="420" r="3.5" fill="#4a7adf"/>
+      <circle cx="300" cy="430" r="3.5" fill="#4a7adf"/>
+      <circle cx="600" cy="560" r="3.5" fill="#4a7adf"/>
+      <circle cx="880" cy="480" r="3.5" fill="#4a7adf"/>
+    </g>
+  </svg>
+
+  <!-- TOP BAR -->
+  <div class="topbar-wrap" style="position:relative;z-index:1;">
+    <div class="topbar-items">
+      <span><i class="bi bi-chat-dots me-1"></i> Support Chat</span>
+      <span><span class="dot-green"></span> Service Status</span>
     </div>
   </div>
 
-  <div class="col-md-6">
-    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-      <div class="col p-4 d-flex flex-column position-static">
-        <h3 class="mb-0 fw-bold ">Register for a Session</h3>
-        <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Full Name</label>
-  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Abebe bikila">
-        </div>
-        <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Email address</label>
-  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="abebbikila@gmail.com">
-        </div>
-        <div>
-            <h5>choose a session</h5>
-            <div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-  <label class="form-check-label" for="flexRadioDefault1">
-    Morning 9:00-12:00
-  </label>
-</div>     
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-  <label class="form-check-label" for="flexRadioDefault1">
-    Evening 00:00-4:00
-  </label>
-</div>
-    <button  type="button" class="btn btn-primary">Register</button>
-    <footer>    <p>Practice form, entries are discarded.</p>
-</footer>
-        </div>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg" style="position:relative;z-index:1;">
+    <div class="container-fluid px-3">
+
+      <a class="navbar-brand" href="#">
+        
+        HOST
+      </a>
+
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false">
+        <i class="bi bi-list text-white fs-4"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Web Hosting</a>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li><a class="dropdown-item" href="#">Shared Hosting</a></li>
+              <li><a class="dropdown-item" href="#">WordPress Hosting</a></li>
+              <li><a class="dropdown-item" href="#">Business Hosting</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="#">VPS</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Price</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">How To</a>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li><a class="dropdown-item" href="#">Tutorials</a></li>
+              <li><a class="dropdown-item" href="#">Documentation</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        </ul>
+        <a href="#" class="btn-login">
+          <i class="bi bi-box-arrow-in-right me-1"></i> LOGIN
+        </a>
       </div>
     </div>
-  </div>
-</div>
+  </nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <div class="container px-4" style="position:relative;z-index:1;">
+    <div class="row align-items-center">
+
+      <div class="col-lg-6 hero-text">
+        <h1>
+          Hosting for Ethiopia's
+          <span class="highlight">Brilliant Businesses.</span>
+        </h1>
+        <p class="desc">
+          Effortless Web Hosting in Ethiopia. Yegara HOST: Affordable Plans,
+          Unbeatable Features. Build Your Dream Site Today!
+        </p>
+
+        <div class="server-locations">
+          <span>Server Locations:</span>
+
+          <!-- UK -->
+          <div class="flag-box">
+            <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" width="36" height="24">
+              <rect width="60" height="40" fill="#012169"/>
+              <path d="M0,0 L60,40 M60,0 L0,40" stroke="white" stroke-width="8"/>
+              <path d="M0,0 L60,40 M60,0 L0,40" stroke="#C8102E" stroke-width="5"/>
+              <path d="M30,0 V40 M0,20 H60" stroke="white" stroke-width="12"/>
+              <path d="M30,0 V40 M0,20 H60" stroke="#C8102E" stroke-width="8"/>
+            </svg>
+          </div>
+
+          <!-- USA -->
+          <div class="flag-box">
+            <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" width="36" height="24">
+              <rect width="60" height="40" fill="#B22234"/>
+              <rect y="6.1" width="60" height="4.6" fill="white"/>
+              <rect y="12.3" width="60" height="4.6" fill="#B22234"/>
+              <rect y="18.5" width="60" height="4.6" fill="white"/>
+              <rect y="24.6" width="60" height="4.6" fill="#B22234"/>
+              <rect y="30.8" width="60" height="4.6" fill="white"/>
+              <rect y="35.4" width="60" height="4.6" fill="#B22234"/>
+              <rect width="24" height="21.5" fill="#3C3B6E"/>
+            </svg>
+          </div>
+
+          <!-- Germany -->
+          <div class="flag-box">
+            <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" width="36" height="24">
+              <rect width="60" height="13.3" fill="#000"/>
+              <rect y="13.3" width="60" height="13.4" fill="#DD0000"/>
+              <rect y="26.7" width="60" height="13.3" fill="#FFCE00"/>
+            </svg>
+          </div>
+
+          <!-- Netherlands -->
+          <div class="flag-box">
+            <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" width="36" height="24">
+              <rect width="60" height="13.3" fill="#AE1C28"/>
+              <rect y="13.3" width="60" height="13.4" fill="#fff"/>
+              <rect y="26.7" width="60" height="13.3" fill="#21468B"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Pricing Card -->
+      <div class="col-lg-6 d-flex justify-content-center justify-content-lg-end">
+        <div class="pricing-card">
+
+          <div class="ribbon-wrap">
+            <span class="ribbon-label">FASTEST</span>
+          </div>
+
+          <div class="card-heading">
+            <strong>PREMIUM</strong> <span>Hosting</span>
+          </div>
+
+          <ul class="feature-list">
+            <li>
+              <i class="bi bi-lightning-charge-fill check-bolt"></i>
+              <strong>UNLIMITED</strong>
+              <span class="badge-nvme">NVMe</span>
+              Storage
+            </li>
+            <li>
+              <i class="bi bi-check-circle-fill check"></i>
+              <strong>UNLIMITED</strong>&nbsp;Bandwidth
+            </li>
+            <li>
+              <i class="bi bi-check-circle-fill check"></i>
+              <strong>UNLIMITED</strong>&nbsp;Email Accounts
+            </li>
+            <li>
+              <i class="bi bi-check-circle-fill check"></i>
+              <strong>COM</strong>&nbsp;Domain Included
+            </li>
+            <li>
+              <i class="bi bi-check-circle-fill check"></i>
+              Powered by&nbsp;
+              <span style="color:#ff6c2f;font-weight:800;font-style:italic;">cPanel</span>
+            </li>
+          </ul>
+
+          <div class="price-block">
+            <div class="amount">6,800</div>
+            <div class="period">Birr / year</div>
+          </div>
+
+          <a href="#" class="btn-buy">
+            <i class="bi bi-cart3"></i>
+            BUY NOW &nbsp;⭐⭐
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Wave Bottom -->
+  <div class="wave-bottom">
+    <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="rgba(255,255,255,0.07)"/>
+      <path d="M0,55 C400,20 1040,70 1440,45 L1440,80 L0,80 Z" fill="rgba(255,255,255,0.04)"/>
+    </svg>
+  </div>
+
+</div><!-- /hero-section -->
+
+
+<!-- Floating Telegram Chat Button -->
+<a href="#" class="chat-btn">
+  <span class="online-dot"></span>
+  <i class="bi bi-telegram"></i>
+  Chat On Telegram
+</a>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
